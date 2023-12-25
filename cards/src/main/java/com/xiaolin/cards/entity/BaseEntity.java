@@ -1,4 +1,4 @@
-package com.xiaolin.accounts.entity;
+package com.xiaolin.cards.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

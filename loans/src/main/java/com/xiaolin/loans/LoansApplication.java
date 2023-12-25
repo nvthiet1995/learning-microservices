@@ -1,4 +1,4 @@
-package com.xiaolin.accounts;
+package com.xiaolin.loans;
 
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -13,28 +13,25 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Accounts microservice REST API Documentation",
-				description = "Accounts microservice REST API Documentation",
+				title = "Loans microservice REST API Documentation",
+				description = "EazyBank Loans microservice REST API Documentation",
 				version = "v1",
 				contact = @Contact(
 						name = "Thiet Nguyen",
-						email = "nvthiet.it.95@gmail.com",
-						url = "https://fb.com/thietnguyen76"
+						email = "nvthiet.it.95@gmail.com"
 				),
 				license = @License(
-						name = "Apache 2.0",
-						url = "https://fb.com/thietnguyen76"
+						name = "Apache 2.0"
 				)
 		),
 		externalDocs = @ExternalDocumentation(
-				description =  "Accounts microservice REST API Documentation",
-				url = "https://fb.com/thietnguyen76"
+				description = "Loans microservice REST API Documentation"
 		)
 )
-public class AccountsApplication {
+public class LoansApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AccountsApplication.class, args);
+		SpringApplication.run(LoansApplication.class, args);
 	}
 
 }
