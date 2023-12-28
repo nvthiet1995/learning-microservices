@@ -11,6 +11,7 @@
 	<groupId>com.xiaolin</groupId>
 	<artifactId>loans</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>loans</name>
 	<description>Microservices for Loans</description>
 	<properties>
@@ -78,7 +79,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
+						<name>nvthiet1995/${project.artifactId}:s4</name>
 					</image>
 					<excludes>
 						<exclude>
