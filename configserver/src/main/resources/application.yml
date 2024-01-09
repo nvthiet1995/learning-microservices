@@ -1,6 +1,6 @@
 spring:
   application:
-    name: "configservers"
+    name: "configserver"
   profiles:
 #    active: native
     active: git
