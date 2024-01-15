@@ -52,11 +52,14 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.2.0</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -110,7 +113,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>nvthiet1995/${project.artifactId}:s6</image>
+						<image>nvthiet1995/${project.artifactId}:s7</image>
 					</to>
 				</configuration>
 			</plugin>
