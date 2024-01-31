@@ -17,7 +17,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "nvthiet1995/configserver:s8"
+    image: "nvthiet1995/configserver:s9"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -35,7 +35,7 @@ services:
       service: microservice-base-config
 
   eurekaserver:
-    image: "nvthiet1995/eurekaserver:s8"
+    image: "nvthiet1995/eurekaserver:s9"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -54,10 +54,16 @@ services:
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
 
   accounts:
-    image: "nvthiet1995/accounts:s8"
+    image: "nvthiet1995/accounts:s9"
     container_name: accounts-ms
     ports:
       - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_APPLICATION_NAME: "accounts"
     extends:
@@ -65,10 +71,16 @@ services:
       service: microservice-eurekaserver-config
 
   cards:
-    image: "nvthiet1995/cards:s8"
+    image: "nvthiet1995/cards:s9"
     container_name: cards-ms
     ports:
       - "9000:9000"
+    healthcheck:
+      test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_APPLICATION_NAME: "cards"
     extends:
@@ -76,27 +88,50 @@ services:
       service: microservice-eurekaserver-config
 
   loans:
-    image: "nvthiet1995/loans:s8"
+    image: "nvthiet1995/loans:s9"
     container_name: loans-ms
     ports:
       - "8090:8090"
+    healthcheck:
+      test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_APPLICATION_NAME: "loans"
     extends:
       file: common-config.yml
       service: microservice-eurekaserver-config
 
-  loans1:
-    image: "nvthiet1995/loans:s8"
-    container_name: loans-ms1
+#  loans1:
+#    image: "nvthiet1995/loans:s9"
+#    container_name: loans-ms1
+#    ports:
+#      - "8091:8090"
+#    environment:
+#      SPRING_APPLICATION_NAME: "loans"
+#    extends:
+#      file: common-config.yml
+#      service: microservice-eurekaserver-config
+
+  gatewayserver:
+    image: "nvthiet1995/gatewayserver:s9"
+    container_name: gatewayserver-ms
     ports:
-      - "8091:8090"
+      - "8072:8072"
+    depends_on:
+      accounts:
+        condition: service_healthy
+      cards:
+        condition: service_healthy
+      loans:
+        condition: service_healthy
     environment:
-      SPRING_APPLICATION_NAME: "loans"
+      SPRING_APPLICATION_NAME: "gatewayserver"
     extends:
       file: common-config.yml
       service: microservice-eurekaserver-config
-
 
 networks:
   xiaolin:

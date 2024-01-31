@@ -5,6 +5,6 @@ import com.xiaolin.accounts.dto.CustomerDto;
 
 public interface ICustomersService {
 
-    CustomerDetailsDto fetchCustomerDetails(String mobilePhone);
+    CustomerDetailsDto fetchCustomerDetails(String mobilePhone, String correlationId);
 
 }

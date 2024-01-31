@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class CustomerController {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
     private final ICustomersService iCustomersService;
 
     public CustomerController(ICustomersService iCustomersService) {
@@ -54,10 +57,13 @@ public class CustomerController {
             )
     })
     @GetMapping("/fetchCustomerDetails")
-    public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(@RequestParam
-                                                           @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
-                                                           String mobileNumber) {
-        CustomerDetailsDto customerDetailsDto = iCustomersService.fetchCustomerDetails(mobileNumber);
+    public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(@RequestHeader("xiaolin-correlation-id")
+                                                                   String correlationId,
+                                                                   @RequestParam
+                                                                   @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
+                                                                   String mobileNumber) {
+        logger.debug("xiaolin-correlation-id found: {} ", correlationId);
+        CustomerDetailsDto customerDetailsDto = iCustomersService.fetchCustomerDetails(mobileNumber, correlationId);
         return ResponseEntity.status(HttpStatus.OK).body(customerDetailsDto);
     }
 
