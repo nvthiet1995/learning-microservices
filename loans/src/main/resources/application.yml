@@ -68,3 +68,9 @@ info:
     name: "loans"
     description: "Loans application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      xiaolin:
+        loans: DEBUG
